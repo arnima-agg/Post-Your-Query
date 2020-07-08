@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+            <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <title>Blog</title>
+</head>
+<body>
+    
+    <div class="container">
+    <h1 class =  "mb-1" ><%= article.title %></h1>
+    <div class =  "text-muted mb-2" >
+        <%= article.createdAt.toLocaleDateString() %>
+    </div>
+    <a href="/" class ="btn btn-secondary mt-3">All Articles</a>
+    <a href="/article/edit/<%= article.id %>" class ="btn btn-info mt-3">Edit</a>
+    <div class="mt-4"><%= article.description %></div>
+    <div>
+        <%- article.sanitizedHtml %>
+      </div>
+      <div class="form-group mt-4">
+        <label for="comment">Add your comments :</label>
+        <textarea class="form-control" id="commentarea" rows="3"></textarea>
+        <a type="submit" class ="btn btn-info mt-3">Submit</a>
+      </div>
+</div>
+</body>
+<script type="text/javascript">
+  var socket = io();
+      $('#send').click(function(){
+          var comment = $('#comment').val();
+          var postId = $('#postId').val();
+          if(comment != ''){
+              var data = {'comment': comment,'postId': postId};
+          $('.comments').append("<p>"+comment+"</p>");
+          $('#comment').val('');
+          }
+          
+      socket.emit('comment',data);
+   
+   
+      });
+   
+      socket.on('comment',function(data){
+          var postId = "<%= postId %>";
+          if(postId==data.postId){
+              $('.comments').append("<p>"+data.comment+"</p>");
+          }
+          });
+      
+   
+  </script>
+</html>

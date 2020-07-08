@@ -1,0 +1,13 @@
+<div class="form-group">
+
+    <label for="title">Title</label>
+    <input required value="<%=article.title %> "type="text" class ="form-control mb-3" name="title" id="title">
+    <label for="description">Algorithm/Question</label>
+    <textarea required name="description" id="description" class='form-control mb-3' rows="10" style="overflow-y: scroll;" >
+        <%= article.description %>
+    </textarea>
+
+    <a href='/' class="btn btn-danger m-2" >Cancel</a>  <% /* if user cancels this takes us back to our home page */ %>
+    <button type="submit" class="btn btn-success">Save</button>
+
+</div>
