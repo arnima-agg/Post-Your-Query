@@ -6,4 +6,5 @@ Creating simple blog app where coders can post their queries in the blogs, updat
 - Express
 - Socket Io 
 - NodeJS
+- Bootstrap
 - Ejs
